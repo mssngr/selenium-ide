@@ -45,6 +45,7 @@ import '../../styles/layout.css'
 import '../../styles/resizer.css'
 import { isProduction, isTest, userAgent } from '../../../common/utils'
 import Logger from '../../stores/view/Logs'
+import convertToWebdriver from './convertToWebdriver'
 
 import { loadProject, saveProject, loadJSProject } from '../../IO/filesystem'
 
@@ -289,9 +290,7 @@ export default class Panel extends React.Component {
             maxSize={UiState.maxContentHeight}
             size={UiState.windowHeight - UiState.consoleHeight}
             onChange={size => UiState.resizeConsole(window.innerHeight - size)}
-            style={{
-              position: 'initial',
-            }}
+            style={{ position: 'initial' }}
           >
             <div className="wrapper">
               <PauseBanner />
@@ -303,7 +302,7 @@ export default class Panel extends React.Component {
                   this.openFile = openFile
                 }}
                 load={loadProject.bind(undefined, this.state.project)}
-                save={() => saveProject(this.state.project)}
+                save={() => saveProject(convertToWebdriver(this.state.project))}
                 new={this.loadNewProject.bind(this)}
               />
               <div
